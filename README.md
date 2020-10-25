@@ -11,7 +11,5 @@ This repository have the next information about the project:
 		- Sensor de humedad y de temperatura AM2302 DHT22
 - Biological area:
 	- Some of the used bibliography
-- Economic area:
-	- Long term estimation
 
 
