@@ -1,0 +1,22 @@
+El sistema estaría formado por una estructura master-slave mediante una raspberry pi y una arduino. El dispositivo arduino sería quién se encargaría de la recopilación de información de un sensor de temperatura y humedad y otro sensor de C02 y TVOC. Una vez recopilado la información y calculado el estado del aula se transmite a la raspberry pi con un módulo rs-485 (cable solo modo lectura). Esta se encargará de deducir los procesos que tiene que automatizar además de transmitir toda la información a la pantalla conectada al propio dispositivo. Por último, el dispositivo transferirá la información a la base de datos correspondiente (AWS amazon).
+
+Decisiones tomadas y por qué:
+- Conexión master-slave por cable en vez de otro tipo de medio: hemos tomado esta decisión por el hecho de la rápidez de transmisión de información además para evitar la pérdida de información. Igualmente no nos cerramos a alternativas en el cual la Arduino tuviera de transmisión a distancia hacia la Raspberry.
+- Estructura master-slave en vez de un solo dispositivo: esto se ha decidido así para que:
+	- a) El sistema	fuera ampliable por más de una Arduino (slave) dependiendo de la amplitud del aula/organización del sistema.
+	- b) La Raspberry tiene más capacidad de procesamiento y es más adaptable para automatización de procesos. Por lo cual el reparto de tareas es clave para el correcto funcionamiento del sistema.
+	- c) Sistema mas flexible y adaptable al entorno
+	- d) Al ser por cable cubririamos entradas de seguridad para evitar la manipulación de la información de los sensores con técnicas de MIT, y el principal peso de asegurar el dispositivo caeria sobre un solo dispositivo.
+	- e) La arduino tiene un sistema de persistencia más fácil de implementar, para unos cálculos medios inmediatos para deducción del estado del aula.
+- Pantalla física conectada a la raspberry: Esta decisión la hemos tomado para que tenga un inmediatez a la hora de contacto con los peones del aula que una aplicación no tendría, además para compatibilidad con públicos mayores. Igualmente la posterior actualización de información en la base de datos permite la consulta de información sin estar en el medio físico.
+- A pesar de que nuestra propuesta inicial está planteada con un entorno de conexión cableado entre la raspberry y en el endpoint. La posibilidad de utilizar dispositivos receptores wireless y potenciando la seguridad con herramientas como una plataforma IoTCore y Serverless.
+
+Propuestas Seguridad:
+- Cambio de puerto en procesos básicos como SSH, https...
+- Integración de encriptación en reposo con herramientas como:
+	- Veracrypt -> Block device encryption.
+  - Cryptomator -> Cloud-storage encryption.
+- Privilegios de solo lectura hacia las Arduino.
+	- Medio físico de conexión.
+
+
